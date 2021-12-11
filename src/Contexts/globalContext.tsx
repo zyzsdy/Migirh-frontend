@@ -2,33 +2,29 @@ import React, { createContext, Dispatch, ReactNode, useContext, useReducer } fro
 
 import { reducer, initState, GlobalAction, GlobalState } from './globalStore';
 
-type GlobalContextStore = {
-    state: GlobalState,
-    dispatch: Dispatch<GlobalAction>
+const initDispatch: Dispatch<GlobalAction> = (action: GlobalAction): GlobalState => {
+    throw new Error('context init error.'); 
 }
 
-const initContext: GlobalContextStore = {
-    state: initState,
-    dispatch: (action: GlobalAction) : GlobalState => {
-        throw new Error('context init error.'); 
-    }
-}
-
-export const GlobalContext = createContext(initContext);
+const GlobalStateContext = createContext(initState);
+const GlobalDispatchContext = createContext(initDispatch);
 
 export function useGlobalStore() {
-    return useContext(GlobalContext);
+    return useContext(GlobalStateContext);
 }
 
-type Props = {
-    children: ReactNode
+export function useGlobalDispatch(){
+    return useContext(GlobalDispatchContext);
 }
-export function GlobalProvider({ children } : Props) {
+
+export function GlobalProvider({ children } : { children: ReactNode}) {
     const [state, dispatch] = useReducer(reducer, initState);
 
     return (
-        <GlobalContext.Provider value={{state, dispatch}}>
-            { children }
-        </GlobalContext.Provider>
+        <GlobalStateContext.Provider value={state}>
+            <GlobalDispatchContext.Provider value={dispatch}>
+                { children }
+            </GlobalDispatchContext.Provider>
+        </GlobalStateContext.Provider>
     );
 }

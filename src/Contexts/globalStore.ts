@@ -1,5 +1,5 @@
 export const initState = {
-    apiRoot: "http://127.0.0.1:46015/api",
+    apiRoot: "http://127.0.0.1:46015/api", //no tailing slash!
     isLogin: false,
     loginUser: {
         name: "",

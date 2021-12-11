@@ -4,6 +4,7 @@ import MainFramework from './Components/MainFramework';
 import AboutPage from './Pages/AboutPage';
 import HomePage from './Pages/HomePage';
 import LoginPage from './Pages/LoginPage';
+import SettingPage from './Pages/SettingPage';
 import { GlobalProvider } from './Contexts/globalContext';
 import RequireAuth from './Components/RequireAuth';
 
@@ -17,8 +18,9 @@ export default function DefaultRouter() {
                             <MainFramework />
                         </RequireAuth>
                     }>
-                        <Route path="about" element={<AboutPage />} />
                         <Route path="home" element={<HomePage />} />
+                        <Route path="about" element={<AboutPage />} />
+                        <Route path="settings" element={<SettingPage />} />
                     </Route>
                     <Route path="/login" element={<LoginPage />} />
                 </Routes>
