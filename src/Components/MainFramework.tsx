@@ -3,6 +3,7 @@ import { CalendarOutlined, SettingOutlined, TagsOutlined } from '@ant-design/ico
 import { Layout, Menu } from 'antd';
 import './MainFramework.scss';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import migirhLogo from '../assets/migirh-logo.png';
 
 const { Header, Sider, Content } = Layout;
 
@@ -13,12 +14,15 @@ export default function MainFramework() {
     return (
         <Layout>
             <Header className="layout-header-background">
-                <div>Migirh</div>
+                <div className="layout-header-brand">
+                    <img alt="Logo" className="layout-header-logo" src={migirhLogo} />
+                    <span className="header-logo-title">Migirh</span>
+                </div>
             </Header>
             <Layout>
                 <Sider collapsible collapsed={collapse} onCollapse={c => setCollapse(c)} width={200} className="layout-sider-background">
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]}>
-                        <Menu.Item key="/home" icon={<CalendarOutlined />}><Link to="/home">Tasks</Link></Menu.Item>
+                        <Menu.Item key="/" icon={<CalendarOutlined />}><Link to="/">Tasks</Link></Menu.Item>
                         <Menu.Item key="/settings" icon={<SettingOutlined />}><Link to="/settings">Settings</Link></Menu.Item>
                         <Menu.Item key="/about" icon={<TagsOutlined />}><Link to="/about">About</Link></Menu.Item>
                     </Menu>

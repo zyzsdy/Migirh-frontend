@@ -18,7 +18,7 @@ export default function DefaultRouter() {
                             <MainFramework />
                         </RequireAuth>
                     }>
-                        <Route path="home" element={<HomePage />} />
+                        <Route index element={<HomePage />} />
                         <Route path="about" element={<AboutPage />} />
                         <Route path="settings" element={<SettingPage />} />
                     </Route>
