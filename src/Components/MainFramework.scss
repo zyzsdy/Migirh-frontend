@@ -37,4 +37,22 @@
     font-weight: bold;
     line-height: 64px;
     font-family: 'Fredoka One';
+    display: none;
+    @media screen and (min-width: 1100px) {
+        display: inline;
+    }
+}
+
+.header-maininput-warpper {
+    margin-top: 10px;
+}
+
+.header-maininput {
+    width: calc(100% - 80px) !important;
+    height: 45px;
+}
+
+.header-maininput-button {
+    width: 80px;
+    height: 45px;
 }

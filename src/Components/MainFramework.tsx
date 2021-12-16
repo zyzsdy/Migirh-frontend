@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { CalendarOutlined, SettingOutlined, TagsOutlined } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import React, { useRef, useState } from 'react';
+import { CalendarOutlined, SettingOutlined, TagsOutlined, SearchOutlined } from '@ant-design/icons';
+import { Input, Button, Layout, Menu, Row, Col } from 'antd';
 import './MainFramework.scss';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import migirhLogo from '../assets/migirh-logo.png';
@@ -10,14 +10,28 @@ const { Header, Sider, Content } = Layout;
 export default function MainFramework() {
     const [collapse, setCollapse] = useState(true);
     const location = useLocation();
+    const mainInputEl = useRef<Input>(null);
+
+    const mainInputProcessing = async () => {
+        var value = mainInputEl.current?.state.value ?? "";
+        console.log(value);
+    }
 
     return (
         <Layout>
             <Header className="layout-header-background">
-                <div className="layout-header-brand">
-                    <img alt="Logo" className="layout-header-logo" src={migirhLogo} />
-                    <span className="header-logo-title">Migirh</span>
-                </div>
+                <Row>
+                    <Col span={4} className="layout-header-brand">
+                        <img alt="Logo" className="layout-header-logo" src={migirhLogo} />
+                        <span className="header-logo-title">Migirh</span>
+                    </Col>
+                    <Col span={20} className="header-maininput-warpper">
+                        <Input.Group compact>
+                            <Input className="header-maininput" ref={mainInputEl} placeholder='Enter link / page / command you want by Minyami' onPressEnter={mainInputProcessing} />
+                            <Button className="header-maininput-button" icon={<SearchOutlined />} onClick={mainInputProcessing} />
+                        </Input.Group>
+                    </Col>
+                </Row>
             </Header>
             <Layout>
                 <Sider collapsible collapsed={collapse} onCollapse={c => setCollapse(c)} width={200} className="layout-sider-background">
