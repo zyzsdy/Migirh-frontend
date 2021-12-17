@@ -24,6 +24,7 @@ export default function MainFramework() {
                     <Col span={4} className="layout-header-brand">
                         <img alt="Logo" className="layout-header-logo" src={migirhLogo} />
                         <span className="header-logo-title">Migirh</span>
+                        <span className="header-logo-title-long">Minyami GUI</span>
                     </Col>
                     <Col span={20} className="header-maininput-warpper">
                         <Input.Group compact>

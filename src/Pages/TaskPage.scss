@@ -1,0 +1,10 @@
+.task-wrapper {
+    padding: 10px;
+}
+
+.task-button-label {
+    display: none !important;
+    @media screen and (min-width: 800px) {
+        display: inline-block !important;
+    }
+}
