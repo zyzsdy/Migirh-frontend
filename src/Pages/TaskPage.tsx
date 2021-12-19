@@ -1,6 +1,7 @@
 import { PauseCircleOutlined, PlayCircleOutlined, PlusCircleOutlined, StopOutlined, DeleteOutlined } from '@ant-design/icons';
-import { Button, Progress, Table } from 'antd';
+import { Button, Progress, Space, Table } from 'antd';
 import React, { useReducer } from 'react';
+import { useTranslation } from 'react-i18next';
 import './TaskPage.scss';
 
 interface TaskBasicInfo {
@@ -21,53 +22,6 @@ interface TaskBasicInfo {
     eta: string;
 }
 
-const columns = [
-    {
-        title: "Filename",
-        dataIndex: "filename"
-    },
-    {
-        title: "Live",
-        dataIndex: "is_live",
-        render: (is_live: boolean) => <>{ is_live ? "Y" : "" }</>
-    },
-    {
-        title: "Status",
-        dataIndex: "status",
-        render: (status: number) => {
-            const statusLabels = ["Init", "Downloading", "Paused", "Merging", "Completed", "Error"];
-            let l = statusLabels[status];
-            return <>{ l }</>;
-        }
-    },
-    {
-        title: "Process",
-        dataIndex: "finished_chunk_count",
-        render: (d: number, row: TaskBasicInfo) => {
-            if (row.is_live) return <></>;
-
-            let percentage = row.finished_chunk_count / row.total_chunk_count;
-            return <><Progress percent={percentage} status="active" /></>;
-        }
-    },
-    {
-        title: "ETA",
-        dataIndex: "eta"
-    },
-    {
-        title: "Chunk speed",
-        dataIndex: "chunk_speed"
-    },
-    {
-        title: "Description",
-        dataIndex: "description"
-    },
-    {
-        title: "Added Time",
-        dataIndex: "date_create"
-    }
-]
-
 interface TaskListAction {
     type: string,
     param: string
@@ -79,18 +33,67 @@ const reducer = (state: TaskBasicInfo[], action: TaskListAction) => {
 
 export default function TaskPage() {
     const [taskList, dispatchTaskList] = useReducer(reducer, []);
-
+    const [t, i18n] = useTranslation("tasks");
+    
+    const statusLabels = [t("Init"), t("Downloading"), t("Paused"), t("Merging"), t("Completed"), t("Error")];
+    const columns = [
+        {
+            title: t("Filename"),
+            dataIndex: "filename"
+        },
+        {
+            title: t("IsLive"),
+            dataIndex: "is_live",
+            render: (is_live: boolean) => <>{ is_live ? "Y" : "" }</>
+        },
+        {
+            title: t("Status"),
+            dataIndex: "status",
+            render: (status: number) => {
+                let l = statusLabels[status];
+                return <>{ l }</>;
+            }
+        },
+        {
+            title: t("Process"),
+            dataIndex: "finished_chunk_count",
+            render: (d: number, row: TaskBasicInfo) => {
+                if (row.is_live) return <></>;
+    
+                let percentage = row.finished_chunk_count / row.total_chunk_count;
+                return <><Progress percent={percentage} status="active" /></>;
+            }
+        },
+        {
+            title: t("ETA"),
+            dataIndex: "eta"
+        },
+        {
+            title: t("ChunkSpeed"),
+            dataIndex: "chunk_speed"
+        },
+        {
+            title: t("Description"),
+            dataIndex: "description"
+        },
+        {
+            title: t("CreateTime"),
+            dataIndex: "date_create"
+        }
+    ];
 
     return (
         <div className="task-wrapper">
             <div>
-                <Button type="primary" icon={<PlusCircleOutlined />}><span className="task-button-label">New Task</span></Button>
-                <Button icon={<PauseCircleOutlined />}><span className="task-button-label">Pause</span></Button>
-                <Button icon={<PlayCircleOutlined />}><span className="task-button-label">Resume</span></Button>
-                <Button icon={<StopOutlined />}><span className="task-button-label">Stop</span></Button>
-                <Button type="primary" danger icon={<DeleteOutlined />}><span className="task-button-label">Delete</span></Button>
+                <Space>
+                    <Button type="primary" icon={<PlusCircleOutlined />}><span className="task-button-label">{t('NewTask')}</span></Button>
+                    <Button icon={<PauseCircleOutlined />}><span className="task-button-label">{t('Pause')}</span></Button>
+                    <Button icon={<PlayCircleOutlined />}><span className="task-button-label">{t('Resume')}</span></Button>
+                    <Button icon={<StopOutlined />}><span className="task-button-label">{t('Stop')}</span></Button>
+                    <Button type="primary" danger icon={<DeleteOutlined />}><span className="task-button-label">{t('Delete')}</span></Button>
+                </Space>
             </div>
-            <div>
+            <div className="task-maintable-wrapper">
                 <Table columns={columns} dataSource={taskList}
                     rowSelection={{
                         type: 'checkbox'

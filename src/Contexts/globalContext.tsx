@@ -1,6 +1,7 @@
 import React, { createContext, Dispatch, ReactNode, useContext, useReducer } from 'react';
-
 import { reducer, initState, GlobalAction, GlobalState } from './globalStore';
+import i18n from '../utils/i18n';
+import { I18nextProvider } from 'react-i18next';
 
 const initDispatch: Dispatch<GlobalAction> = (action: GlobalAction): GlobalState => {
     throw new Error('context init error.'); 
@@ -23,7 +24,9 @@ export function GlobalProvider({ children } : { children: ReactNode}) {
     return (
         <GlobalStateContext.Provider value={state}>
             <GlobalDispatchContext.Provider value={dispatch}>
-                { children }
+                <I18nextProvider i18n={i18n}>
+                    { children }
+                </I18nextProvider>
             </GlobalDispatchContext.Provider>
         </GlobalStateContext.Provider>
     );

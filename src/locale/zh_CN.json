@@ -1,0 +1,30 @@
+{
+    "translation": {
+        "TaskInputPlaceholder": "输入任何你想让Minyami处理的 页面地址 / HLS链接 / 命令",
+        "Tasks": "当前任务",
+        "Histories": "历史任务",
+        "Settings": "设置",
+        "About": "关于"
+    },
+    "tasks": {
+        "NewTask": "新建任务",
+        "Pause": "暂停",
+        "Resume": "恢复",
+        "Stop": "停止",
+        "Delete": "删除",
+        "Filename": "文件名",
+        "IsLive": "直播模式",
+        "Status": "状态",
+        "Process": "进度",
+        "ETA": "剩余时间",
+        "ChunkSpeed": "区块下载速度",
+        "Description": "备注",
+        "CreateTime": "创建时间",
+        "Init": "初始化中",
+        "Downloading": "下载中",
+        "Paused": "已暂停",
+        "Merging": "正在合并",
+        "Completed": "已完成",
+        "Error": "错误"
+    }
+}

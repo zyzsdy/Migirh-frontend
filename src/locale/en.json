@@ -1,0 +1,30 @@
+{
+    "translation": {
+        "TaskInputPlaceholder": "Enter link / page / command you want by Minyami",
+        "Tasks": "Tasks",
+        "Histories": "Histories",
+        "Settings": "Settings",
+        "About": "About"
+    },
+    "tasks": {
+        "NewTask": "New Task",
+        "Pause": "Pause",
+        "Resume": "Resume",
+        "Stop": "Stop",
+        "Delete": "Delete",
+        "Filename": "Filename",
+        "IsLive": "Live",
+        "Status": "Status",
+        "Process": "Process",
+        "ETA": "ETA",
+        "ChunkSpeed": "Chunk Speed",
+        "Description": "Description",
+        "CreateTime": "Create Time",
+        "Init": "Init",
+        "Downloading": "Downloading",
+        "Paused": "Paused",
+        "Merging": "Merging",
+        "Completed": "Completed",
+        "Error": "Error"
+    }
+}
