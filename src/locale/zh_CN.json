@@ -6,6 +6,13 @@
         "Settings": "设置",
         "About": "关于"
     },
+    "login": {
+        "LoginTitle": "用户登录",
+        "Username": "用户名",
+        "Password": "密码",
+        "LoginButton": "登录",
+        "ParameterRequired": "{{para}} 是必填的！"
+    },
     "tasks": {
         "NewTask": "新建任务",
         "Pause": "暂停",

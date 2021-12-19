@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { CalendarOutlined, SettingOutlined, TagsOutlined, SearchOutlined } from '@ant-design/icons';
+import { DownloadOutlined, CalendarOutlined, SettingOutlined, TagsOutlined, SearchOutlined } from '@ant-design/icons';
 import { Input, Button, Layout, Menu, Row, Col } from 'antd';
 import './MainFramework.scss';
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -39,7 +39,8 @@ export default function MainFramework() {
             <Layout>
                 <Sider collapsible collapsed={collapse} onCollapse={c => setCollapse(c)} width={200} className="layout-sider-background">
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]}>
-                        <Menu.Item key="/" icon={<CalendarOutlined />}><Link to="/">{t('Tasks')}</Link></Menu.Item>
+                        <Menu.Item key="/" icon={<DownloadOutlined />}><Link to="/">{t('Tasks')}</Link></Menu.Item>
+                        <Menu.Item key="/histories" icon={<CalendarOutlined />}><Link to="/histories">{t('Histories')}</Link></Menu.Item>
                         <Menu.Item key="/settings" icon={<SettingOutlined />}><Link to="/settings">{t('Settings')}</Link></Menu.Item>
                         <Menu.Item key="/about" icon={<TagsOutlined />}><Link to="/about">{t('About')}</Link></Menu.Item>
                     </Menu>

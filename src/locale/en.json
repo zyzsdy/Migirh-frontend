@@ -6,6 +6,13 @@
         "Settings": "Settings",
         "About": "About"
     },
+    "login": {
+        "LoginTitle": "Login",
+        "Username": "Username",
+        "Password": "Password",
+        "LoginButton": "Login",
+        "ParameterRequired": "{{para}} is required!"
+    },
     "tasks": {
         "NewTask": "New Task",
         "Pause": "Pause",
