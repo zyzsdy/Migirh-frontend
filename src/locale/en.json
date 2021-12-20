@@ -40,6 +40,16 @@
     },
     "settings": {
         "SettingsTitle": "Settings",
-        "Language": "Language"
+        "Language": "Language",
+        "General": "General",
+        "MinyamiOptions": "Minyami Options",
+        "Threads": "Threads",
+        "Retries": "Max retries",
+        "Headers": "HTTP Headers",
+        "Format": "Format",
+        "Nomerge": "No merge",
+        "Verbose": "Verbose",
+        "Network": "Network",
+        "Proxy": "Proxy"
     }
 }

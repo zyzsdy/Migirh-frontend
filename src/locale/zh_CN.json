@@ -40,6 +40,16 @@
     },
     "settings": {
         "SettingsTitle": "系统设置",
-        "Language": "语言"
+        "Language": "语言",
+        "General": "通用",
+        "MinyamiOptions": "Minyami 默认选项",
+        "Threads": "线程",
+        "Retries": "最大重试次数",
+        "Headers": "HTTP Header",
+        "Format": "保存格式",
+        "Nomerge": "不要合并",
+        "Verbose": "调试输出",
+        "Network": "网络",
+        "Proxy": "代理"
     }
 }
