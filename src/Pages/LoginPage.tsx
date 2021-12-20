@@ -33,15 +33,6 @@ export default function LoginPage() {
             localStorage.setItem("uname", "SYSTEM");
             localStorage.setItem("sk", localSk);
     
-            globalDispatch({
-                type: "user/setLogin",
-                param: {
-                    name: "SYSTEM",
-                    token: localToken,
-                    sk: localSk
-                }
-            });
-    
             navigate(from, { replace: true });
         }
     });

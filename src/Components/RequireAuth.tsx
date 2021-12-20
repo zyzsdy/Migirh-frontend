@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useGlobalDispatch, useGlobalStore } from '../Contexts/globalContext';
 import { GlobalState } from '../Contexts/globalStore';
@@ -11,10 +12,15 @@ enum LogStatus{
 }
 
 export default function RequireAuth({ children }: { children: ReactNode}) {
+    const [t, i18n] = useTranslation();
     const globalState = useGlobalStore();
     const globalDispatch = useGlobalDispatch();
     let location = useLocation();
     const [logStatus, setLogStatus] = useState(LogStatus.UNKNOWN);
+
+    const changeLang = (lang: string) => {
+        i18n.changeLanguage(lang);
+    }
 
     const checkLogin = async () => {
         //not logged in, check localStorage
@@ -33,7 +39,7 @@ export default function RequireAuth({ children }: { children: ReactNode}) {
             };
 
             //check loginstatus
-            let res = await fetchPostWithSign(tempGlobalState, "user/checkStatus", {});
+            let res = await fetchPostWithSign(tempGlobalState, "system/init", {});
             let json = await res.json();
 
             if (json['error'] !== 0) {
@@ -45,6 +51,10 @@ export default function RequireAuth({ children }: { children: ReactNode}) {
                     type: "user/setLogout"
                 });
                 setLogStatus(LogStatus.NOT_LOGGED_IN);
+
+                if (json['lang']) {
+                    changeLang(json['lang']);
+                }
             } else {
                 //restore login status
                 globalDispatch({
@@ -55,7 +65,10 @@ export default function RequireAuth({ children }: { children: ReactNode}) {
                         sk: sk
                     }
                 });
-                setLogStatus(LogStatus.LOGGED_IN)
+                setLogStatus(LogStatus.LOGGED_IN);
+                if (json['lang']) {
+                    changeLang(json['lang']);
+                }
             }
 
         } else {
@@ -79,7 +92,7 @@ export default function RequireAuth({ children }: { children: ReactNode}) {
 
     if (logStatus === LogStatus.UNKNOWN) {
         return (
-            <div>Login...</div>
+            <div>{t('Logging')}</div>
         );
     } else if (logStatus === LogStatus.LOGGED_IN) {
         return (

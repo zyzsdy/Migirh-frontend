@@ -8,7 +8,8 @@
         "Tasks": "当前任务",
         "Histories": "历史任务",
         "Settings": "设置",
-        "About": "关于"
+        "About": "关于",
+        "Logging": "登录中..."
     },
     "login": {
         "LoginTitle": "用户登录",
@@ -50,6 +51,12 @@
         "Nomerge": "不要合并",
         "Verbose": "调试输出",
         "Network": "网络",
-        "Proxy": "代理"
+        "Proxy": "代理",
+        "SaveOk": "保存成功",
+        "NoProxy": "不使用代理",
+        "ProxyHost": "代理服务器",
+        "ProxyPort": "端口",
+        "MinyamiTmpPath": "Minyami 临时目录",
+        "EffectAfterRestart": "重启后生效"
     }
 }

@@ -8,7 +8,8 @@
         "Tasks": "Tasks",
         "Histories": "Histories",
         "Settings": "Settings",
-        "About": "About"
+        "About": "About",
+        "Logging": "Login..."
     },
     "login": {
         "LoginTitle": "Login",
@@ -50,6 +51,12 @@
         "Nomerge": "No merge",
         "Verbose": "Verbose",
         "Network": "Network",
-        "Proxy": "Proxy"
+        "Proxy": "Proxy",
+        "SaveOk": "Saved successfully",
+        "NoProxy": "No proxy",
+        "ProxyHost": "Host",
+        "ProxyPort": "Port",
+        "MinyamiTmpPath": "Minyami Temp directory",
+        "EffectAfterRestart": "Take effect after restart"
     }
 }
