@@ -83,7 +83,7 @@ export default function TaskPage() {
     ];
 
     return (
-        <div className="task-wrapper">
+        <div className="mainframe-content-warpper">
             <div>
                 <Space>
                     <Button type="primary" icon={<PlusCircleOutlined />}><span className="task-button-label">{t('NewTask')}</span></Button>

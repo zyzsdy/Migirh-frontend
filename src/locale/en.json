@@ -1,4 +1,8 @@
 {
+    "lang": {
+        "en": "English",
+        "zh-CN": "简体中文"
+    },
     "translation": {
         "TaskInputPlaceholder": "Enter link / page / command you want by Minyami",
         "Tasks": "Tasks",
@@ -33,5 +37,9 @@
         "Merging": "Merging",
         "Completed": "Completed",
         "Error": "Error"
+    },
+    "settings": {
+        "SettingsTitle": "Settings",
+        "Language": "Language"
     }
 }

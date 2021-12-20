@@ -5,7 +5,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import enResources from '../locale/en.json';
 import zhCNResources from '../locale/zh_CN.json';
 
-const resources = {
+export const resources = {
     en: enResources,
     'zh-CN': zhCNResources
 }
