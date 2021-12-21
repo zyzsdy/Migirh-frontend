@@ -14,7 +14,6 @@ export default function LoginPage() {
     const [t, i18n] = useTranslation("login");
     const location = useLocation();
     const navigate = useNavigate();
-    // eslint-disable-next-line
     const [searchParams, setSearchParams] = useSearchParams();
     const globalDispatch = useGlobalDispatch();
 

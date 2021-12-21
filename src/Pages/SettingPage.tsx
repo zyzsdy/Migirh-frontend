@@ -42,31 +42,6 @@ export default function SettingPage() {
     const [proxyOptionsForm] = Form.useForm<ProxyOptions>();
     const minyamiTmpPathInputEl = useRef<Input>(null);
 
-    const loadSystemConfig = async () => {
-        let res = await fetchPostWithSign(globalState, "system/get_config", {});
-        let json = await res.json() as systemConfigGetResponse;
-
-        if (json.error === 0) {
-            for (let config of json.data) {
-                if (config.config_key === "lang") {
-                    setLang(config.config_value);
-                } else if (config.config_key === "minyami_options") {
-                    let minyamiOptions = JSON.parse(config.config_value) as MinyamiOptions;
-                    minyamiOptionsForm.setFieldsValue(minyamiOptions);
-                } else if (config.config_key === "proxy_options") {
-                    let proxyOptions = JSON.parse(config.config_value) as ProxyOptions;
-                    proxyOptionsForm.setFieldsValue(proxyOptions);
-                } else if (config.config_key === "minyami_tmp_path") {
-                    if (minyamiTmpPathInputEl.current) {
-                        minyamiTmpPathInputEl.current.setValue(config.config_value);
-                    }
-                }
-            }
-        } else {
-            defaultApiErrorAction(json, t);
-        }
-    }
-
     const setSystemConfig = async (config: SystemConfig) => {
         let res = await fetchPostWithSign(globalState, "system/update_config", {
             data: [config]
@@ -114,8 +89,33 @@ export default function SettingPage() {
     }
 
     useEffect(() => {
+        const loadSystemConfig = async () => {
+            let res = await fetchPostWithSign(globalState, "system/get_config", {});
+            let json = await res.json() as systemConfigGetResponse;
+    
+            if (json.error === 0) {
+                for (let config of json.data) {
+                    if (config.config_key === "lang") {
+                        setLang(config.config_value);
+                    } else if (config.config_key === "minyami_options") {
+                        let minyamiOptions = JSON.parse(config.config_value) as MinyamiOptions;
+                        minyamiOptionsForm.setFieldsValue(minyamiOptions);
+                    } else if (config.config_key === "proxy_options") {
+                        let proxyOptions = JSON.parse(config.config_value) as ProxyOptions;
+                        proxyOptionsForm.setFieldsValue(proxyOptions);
+                    } else if (config.config_key === "minyami_tmp_path") {
+                        if (minyamiTmpPathInputEl.current) {
+                            minyamiTmpPathInputEl.current.setValue(config.config_value);
+                        }
+                    }
+                }
+            } else {
+                defaultApiErrorAction(json, t);
+            }
+        }
+
         loadSystemConfig();
-    }, []);
+    }, [globalState, t, minyamiOptionsForm, proxyOptionsForm]);
 
     return (
         <div className="mainframe-content-warpper">
