@@ -2,6 +2,7 @@ import { PauseCircleOutlined, PlayCircleOutlined, PlusCircleOutlined, StopOutlin
 import { Button, Progress, Space, Table } from 'antd';
 import React, { useReducer } from 'react';
 import { useTranslation } from 'react-i18next';
+import NewTaskModal from '../Components/NewTaskModal';
 import './TaskPage.scss';
 
 interface TaskBasicInfo {
@@ -86,7 +87,7 @@ export default function TaskPage() {
         <div className="mainframe-content-warpper">
             <div>
                 <Space>
-                    <Button type="primary" icon={<PlusCircleOutlined />}><span className="task-button-label">{t('NewTask')}</span></Button>
+                    <NewTaskModal />
                     <Button icon={<PauseCircleOutlined />}><span className="task-button-label">{t('Pause')}</span></Button>
                     <Button icon={<PlayCircleOutlined />}><span className="task-button-label">{t('Resume')}</span></Button>
                     <Button icon={<StopOutlined />}><span className="task-button-label">{t('Stop')}</span></Button>
