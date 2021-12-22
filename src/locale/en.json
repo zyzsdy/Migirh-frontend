@@ -11,6 +11,9 @@
         "About": "About",
         "Logging": "Login..."
     },
+    "apiResponse": {
+        "ParameterRequired": "{{para}} cannot be empty"
+    },
     "login": {
         "LoginTitle": "Login",
         "Username": "Username",
@@ -29,7 +32,7 @@
         "Status": "Status",
         "Process": "Process",
         "ETA": "ETA",
-        "ChunkSpeed": "Chunk Speed",
+        "Speed": "Speed",
         "Description": "Description",
         "CreateTime": "Create Time",
         "Init": "Init",
@@ -54,7 +57,14 @@
         "Cookies": "Cookies",
         "Headers": "Headers",
         "Proxy": "Proxy",
-        "Slice": "Slice"
+        "Slice": "Slice",
+        "BrowseButton": "Browse...",
+        "TaskAddSuccess": "Task added successfully",
+        "DownloadChunkCount": "{{count}} chunks downloaded",
+        "ChunkSpeedUnit": "chunks/s",
+        "TaskStopSuccess": "Task stop request has been issued",
+        "SelectedCountOnlySupportOne" : "Currently batch stop is not supported, please select only 1 task.",
+        "PleaseSelect": "Please select 1 task"
     },
     "settings": {
         "SettingsTitle": "Settings",

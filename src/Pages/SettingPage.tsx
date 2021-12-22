@@ -150,7 +150,7 @@ export default function SettingPage() {
                         <InputNumber />
                     </Form.Item>
                     <Form.Item label={t('Headers')} name="headers">
-                        <Input />
+                        <Input.TextArea rows={2} />
                     </Form.Item>
                     <Form.Item label={t('Format')} name="format">
                         <Select>

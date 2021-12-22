@@ -11,6 +11,9 @@
         "About": "关于",
         "Logging": "登录中..."
     },
+    "apiResponse": {
+        "ParameterRequired": "参数 {{para}} 不能为空"
+    },
     "login": {
         "LoginTitle": "用户登录",
         "Username": "用户名",
@@ -29,7 +32,7 @@
         "Status": "状态",
         "Process": "进度",
         "ETA": "剩余时间",
-        "ChunkSpeed": "区块下载速度",
+        "Speed": "速度",
         "Description": "备注",
         "CreateTime": "创建时间",
         "Init": "初始化中",
@@ -54,7 +57,14 @@
         "Cookies": "Cookies",
         "Headers": "Headers",
         "Proxy": "代理",
-        "Slice": "范围"
+        "Slice": "截取范围",
+        "BrowseButton": "浏览...",
+        "TaskAddSuccess": "任务添加成功",
+        "DownloadChunkCount": "已下载 {{count}} 块",
+        "ChunkSpeedUnit": "块/s",
+        "TaskStopSuccess": "任务停止请求已发出",
+        "SelectedCountOnlySupportOne" : "目前不支持批量停止，请只勾选 1 个任务",
+        "PleaseSelect": "请勾选 1 个任务"
     },
     "settings": {
         "SettingsTitle": "系统设置",
