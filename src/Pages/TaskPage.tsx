@@ -60,6 +60,7 @@ const reducer = (state: TaskBasicInfo[], action: TaskListAction) => {
 
 export default function TaskPage() {
     const globalState = useGlobalStore();
+    const [refreshFlag, setRefreshFlag] = useState(0);
     const [newTaskModalVisible, setNewTaskModalVisible] = useState(false);
     const [newTaskModalParams, setNewTaskModalParams] = useState<NewTaskParams>();
     const [taskList, dispatchTaskList] = useReducer(reducer, []);
@@ -82,7 +83,15 @@ export default function TaskPage() {
         }
 
         loadTaskNow();
+    }, [globalState, t, refreshFlag]);
+
+    useEffect(() => {
+
     }, [globalState, t]);
+
+    const reloadTaskList = () => {
+        setRefreshFlag(refreshFlag + 1);
+    }
 
     const showNewTask = async () => {
         let res = await fetchPostWithSign(globalState, "task/preadd", {});
@@ -128,6 +137,7 @@ export default function TaskPage() {
         if (json.error === 0) {
             message.success(t('TaskAddSuccess'));
             setNewTaskModalVisible(false);
+            reloadTaskList();
         } else {
             defaultApiErrorAction(json, t);
         }

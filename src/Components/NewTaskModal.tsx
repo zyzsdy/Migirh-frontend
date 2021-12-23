@@ -33,9 +33,12 @@ export default function NewTaskModal(props: NewTaskModalProps) {
     const [t, i18n] = useTranslation("tasks");
     const [newTaskForm] = Form.useForm<NewTaskParams>();
 
-    if (props.initParams) {
-        newTaskForm.setFieldsValue(props.initParams);
-    }
+    useEffect(() => {
+        if (props.initParams) {
+            newTaskForm.setFieldsValue(props.initParams);
+        }
+    }, [newTaskForm, props.initParams]);
+
 
     const onOk = () => {
         props.onOK(newTaskForm.getFieldsValue());
