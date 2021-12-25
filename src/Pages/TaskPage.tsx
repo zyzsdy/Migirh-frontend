@@ -69,7 +69,7 @@ export default function TaskPage() {
                     case 1:
                         if (msg.error !== 0) {
                             notification.error({
-                                message: t('wsConnError', {ns: "apiResponse"}),
+                                message: t('WsConnError', {ns: "apiResponse"}),
                                 description: t(msg.info ?? "", {...msg.info_args, ns: "apiResponse"}),
                                 duration: null
                             });
@@ -116,7 +116,7 @@ export default function TaskPage() {
                     }
                 } else {
                     notification.error({
-                        message: t('wsConnError', {ns: "apiResponse"}),
+                        message: t('WsConnError', {ns: "apiResponse"}),
                         description: e.reason,
                         duration: null
                     });

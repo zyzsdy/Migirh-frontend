@@ -13,7 +13,8 @@
     },
     "apiResponse": {
         "ParameterRequired": "参数 {{para}} 不能为空",
-        "wsConnError": "Websocket 连接出错"
+        "WsConnError": "Websocket 连接出错",
+        "CannotProcess": "无法将输入解析为支持的页面地址、HLS链接或命令"
     },
     "login": {
         "LoginTitle": "用户登录",

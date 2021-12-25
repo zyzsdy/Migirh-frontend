@@ -13,7 +13,8 @@
     },
     "apiResponse": {
         "ParameterRequired": "{{para}} cannot be empty",
-        "wsConnError": "Websocket connection has error"
+        "WsConnError": "Websocket connection has error",
+        "CannotProcess": "Unable to parse the input into a supported page, link or command"
     },
     "login": {
         "LoginTitle": "Login",
