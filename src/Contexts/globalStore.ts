@@ -1,5 +1,6 @@
 export const initState = {
     apiRoot: "http://127.0.0.1:46015/api", //no tailing slash!
+    wsRoot: "ws://127.0.0.1:46015",
     isLogin: false,
     loginUser: {
         name: "",

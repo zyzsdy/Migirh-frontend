@@ -1,5 +1,5 @@
 import { PauseCircleOutlined, PlayCircleOutlined, PlusCircleOutlined, StopOutlined, DeleteOutlined, CheckCircleFilled } from '@ant-design/icons';
-import { Button, message, Progress, Space, Table } from 'antd';
+import { Button, message, notification, Progress, Space, Table } from 'antd';
 import React, { useEffect, useReducer, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import NewTaskModal, { NewTaskParams } from '../Components/NewTaskModal';
@@ -7,55 +7,17 @@ import { useGlobalStore } from '../Contexts/globalContext';
 import { apiResponseData, defaultApiErrorAction } from '../utils/defaultApiErrorAction';
 import { fetchPostWithSign } from '../utils/fetchpost';
 import { formatDateShort } from '../utils/format';
+import { WsClientMessage, WsServerReply } from '../utils/WsMessage';
+import { TaskBasicInfo, taskListReducer } from '../Tasks/tasklist';
+import sleep from '../utils/sleep';
 import './TaskPage.scss';
 
-interface TaskBasicInfo {
-    task_id: string;
-    status: number;
-    is_live: boolean;
-    filename: string;
-    output_path: string;
-    source_url: string;
-    category: string;
-    date_create: Date;
-    date_update: Date;
-    description: string;
-    finished_chunk_count: number;
-    total_chunk_count: number;
-    chunk_speed: string;
-    ratio_speed: string;
-    eta: string;
-}
-
-interface ReloadTaskList {
-    type: "reloadTaskList",
-    param: TaskBasicInfo[]
-}
-
-interface PushTaskList {
-    type: "push",
-    param: TaskBasicInfo
-}
-
-type TaskListAction = ReloadTaskList | PushTaskList;
-
 interface taskPreaddResponse extends apiResponseData {
-    cache: NewTaskParams
+    cache: NewTaskParams;
 }
 
 interface taskNowResponse extends apiResponseData {
-    data: TaskBasicInfo[]
-}
-
-const reducer = (state: TaskBasicInfo[], action: TaskListAction) => {
-    switch (action.type) {
-        case "reloadTaskList":
-            return action.param;
-        case "push":
-            return [...state, action.param];
-        default:
-            return state;
-    }
+    data: TaskBasicInfo[];
 }
 
 export default function TaskPage() {
@@ -63,7 +25,7 @@ export default function TaskPage() {
     const [refreshFlag, setRefreshFlag] = useState(0);
     const [newTaskModalVisible, setNewTaskModalVisible] = useState(false);
     const [newTaskModalParams, setNewTaskModalParams] = useState<NewTaskParams>();
-    const [taskList, dispatchTaskList] = useReducer(reducer, []);
+    const [taskList, dispatchTaskList] = useReducer(taskListReducer, []);
     const [selectedTask, setSelectedTask] = useState<React.Key[]>([]);
     const [t, i18n] = useTranslation("tasks");
 
@@ -86,8 +48,131 @@ export default function TaskPage() {
     }, [globalState, t, refreshFlag]);
 
     useEffect(() => {
+        let ws: WebSocket;
+        let running = false;
+        let heartBeatId: number;
+        const wsConn = () => {
+            console.log("DEBUG;;==CONN WS;");
+            ws = new WebSocket(globalState.wsRoot);
+            
+            ws.addEventListener('open', () => {
+                running = true;
+                wsSend({
+                    cmd: 1,
+                    token: globalState.loginUser.token
+                });
+                wsStartHeartbeat();
+            });
+            ws.addEventListener('message', (e: any) => {
+                let msg = JSON.parse(e.data) as WsServerReply;
+                switch (msg.cmd){
+                    case 1:
+                        if (msg.error !== 0) {
+                            notification.error({
+                                message: t('wsConnError', {ns: "apiResponse"}),
+                                description: t(msg.info ?? "", {...msg.info_args, ns: "apiResponse"}),
+                                duration: null
+                            });
+                            return;
+                        }
+                        return;
+                    case 2:
+                        return;
+                    case 3:
+                        setRefreshFlag(0);
+                        return;
+                    case 4:
+                        if (msg.subCmd === 1) {
+                            dispatchTaskList({
+                                type: "chunkUpdate",
+                                param: {
+                                    task_id: msg.task_id,
+                                    data: msg.data
+                                }
+                            });
+                        } else if (msg.subCmd === 2) {
+                            dispatchTaskList({
+                                type: "statusChange",
+                                param: {
+                                    task_id: msg.task_id,
+                                    newStatus: msg.newStatus
+                                }
+                            });
+                        }
+                        return;
+                    default:
+                        return;
+                }
+            });
+            ws.addEventListener('error', async (e: any) => {
+                if (running) {
+                    console.log("Websocket disconnected due to error, trying to reconnect...");
+                    await sleep(1000);
 
-    }, [globalState, t]);
+                    if (ws && (ws.readyState === 2 || ws.readyState === 3)) {
+                        wsConn();
+                    } else {
+                        console.log("Abandon ws reconnect");
+                    }
+                } else {
+                    notification.error({
+                        message: t('wsConnError', {ns: "apiResponse"}),
+                        description: e.reason,
+                        duration: null
+                    });
+                }
+            });
+            ws.addEventListener('close', async (e: any) => {
+                if (running) {
+                    console.log("Websocket disconnected, trying to reconnect...")
+                    await sleep(1000);
+
+                    if (ws && (ws.readyState === 2 || ws.readyState === 3)) {
+                        wsConn();
+                    } else {
+                        console.log("Abandon ws reconnect");
+                    }
+                } else {
+                    console.log("DEBUG;;==WS CLOSED;");
+                }
+            });
+        }
+
+        const wsSend = async (msg: WsClientMessage) => {
+            if (ws && ws.readyState === 1) {
+                ws.send(JSON.stringify(msg));
+            } else {
+                throw new Error("Websocket connection has already closed or not been established.");
+            }
+        }
+
+        const wsSendHeartbeat = () => {
+            if (ws && ws.readyState === 1) {
+                wsSend({
+                    cmd: 2
+                });
+            } else {
+                clearInterval(heartBeatId);
+            }
+        }
+
+        const wsStartHeartbeat = async () => {
+            clearInterval(heartBeatId);
+            heartBeatId = window.setInterval(wsSendHeartbeat, 30000);
+        }
+
+        wsConn();
+
+        return () => {
+            console.log("DEBUG;;==ACTIVED STOP WS;");
+            if (ws) {
+                running = false;
+                ws.close();
+            }
+        }
+
+        // eslint-disable-next-line
+    }, []);
 
     const reloadTaskList = () => {
         setRefreshFlag(refreshFlag + 1);
@@ -192,21 +277,30 @@ export default function TaskPage() {
             dataIndex: "finished_chunk_count",
             render: (d: number, row: TaskBasicInfo) => {
                 if (row.is_live) return <>{t('DownloadChunkCount', {count: row.finished_chunk_count})}</>;
-    
-                let percentage = row.finished_chunk_count / row.total_chunk_count;
-                return <><Progress percent={percentage} status="active" /></>;
+
+                let percentage = 0;
+                if (row.finished_chunk_count && row.total_chunk_count) {
+                    percentage = +((row.finished_chunk_count / row.total_chunk_count) * 100).toFixed(2);
+                }
+                if (row.finished_chunk_count === row.total_chunk_count) {
+                    return <Progress className="task-progress-bar" percent={100} status="success" />;
+                } else {
+                    return <Progress className="task-progress-bar" percent={percentage} status="active" />;
+                }
+                
             },
             width: "200px"
         },
         {
             title: t("ETA"),
             dataIndex: "eta",
-            width: "140px"
+            width: "140px",
+            render: (x: string, row: TaskBasicInfo) => <>{row.status !== 4 && row.eta}</>
         },
         {
             title: t("Speed"),
             dataIndex: "chunk_speed",
-            render: (s: string, row: TaskBasicInfo) => <>{row.chunk_speed} {t('ChunkSpeedUnit')} | {row.ratio_speed}x</>,
+            render: (s: string, row: TaskBasicInfo) => <>{row.status !== 4 && <>{row.chunk_speed} {t('ChunkSpeedUnit')} | {row.ratio_speed}x</>}</>,
             width: "140px"
         },
         {

@@ -12,7 +12,8 @@
         "Logging": "Login..."
     },
     "apiResponse": {
-        "ParameterRequired": "{{para}} cannot be empty"
+        "ParameterRequired": "{{para}} cannot be empty",
+        "wsConnError": "Websocket connection has error"
     },
     "login": {
         "LoginTitle": "Login",

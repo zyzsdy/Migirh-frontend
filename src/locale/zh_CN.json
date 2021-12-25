@@ -12,7 +12,8 @@
         "Logging": "登录中..."
     },
     "apiResponse": {
-        "ParameterRequired": "参数 {{para}} 不能为空"
+        "ParameterRequired": "参数 {{para}} 不能为空",
+        "wsConnError": "Websocket 连接出错"
     },
     "login": {
         "LoginTitle": "用户登录",

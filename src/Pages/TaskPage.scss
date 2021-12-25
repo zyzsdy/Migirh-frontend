@@ -8,3 +8,12 @@
 .task-maintable-wrapper {
     margin-top: 5px;
 }
+
+.task-progress-bar .ant-progress-bg {
+    height: 20px !important;
+    border-radius: 7px;
+}
+
+.task-progress-bar .ant-progress-inner {
+    border-radius: 7px;
+}
