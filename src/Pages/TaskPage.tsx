@@ -20,9 +20,13 @@ interface taskNowResponse extends apiResponseData {
     data: TaskBasicInfo[];
 }
 
+const stepInReducer = (state: number) => {
+    return state + 1;
+}
+
 export default function TaskPage() {
     const globalState = useGlobalStore();
-    const [refreshFlag, setRefreshFlag] = useState(0);
+    const [refreshFlag, setRefreshFlag] = useReducer(stepInReducer, 0);
     const [newTaskModalVisible, setNewTaskModalVisible] = useState(false);
     const [newTaskModalParams, setNewTaskModalParams] = useState<NewTaskParams>();
     const [taskList, dispatchTaskList] = useReducer(taskListReducer, []);
@@ -79,7 +83,7 @@ export default function TaskPage() {
                     case 2:
                         return;
                     case 3:
-                        setRefreshFlag(0);
+                        setRefreshFlag();
                         return;
                     case 4:
                         if (msg.subCmd === 1) {
@@ -174,10 +178,6 @@ export default function TaskPage() {
         // eslint-disable-next-line
     }, []);
 
-    const reloadTaskList = () => {
-        setRefreshFlag(refreshFlag + 1);
-    }
-
     const showNewTask = async () => {
         let res = await fetchPostWithSign(globalState, "task/preadd", {});
         let json = await res.json() as taskPreaddResponse;
@@ -197,35 +197,8 @@ export default function TaskPage() {
         setNewTaskModalVisible(false);
     }
 
-    const newTaskAction = async (value: NewTaskParams) => {
-        let res = await fetchPostWithSign(globalState, "task/add", {
-            url: value.url,
-            live: value.live,
-            output: value.output,
-            category: value.category,
-            description: value.description,
-            options: {
-                threads: value.threads,
-                retries: value.retries,
-                key: value.key,
-                cookies: value.cookies,
-                headers: value.headers,
-                format: value.format,
-                slice: value.slice,
-                proxy: value.proxy,
-                nomerge: value.nomerge,
-                verbose: value.verbose
-            }
-        });
-        let json = await res.json() as apiResponseData;
-
-        if (json.error === 0) {
-            message.success(t('TaskAddSuccess'));
-            setNewTaskModalVisible(false);
-            reloadTaskList();
-        } else {
-            defaultApiErrorAction(json, t);
-        }
+    const newTaskAction = async () => {
+        setNewTaskModalVisible(false);
     }
 
     const stopTask = async () => {

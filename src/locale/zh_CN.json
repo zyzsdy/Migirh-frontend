@@ -9,7 +9,8 @@
         "Histories": "历史任务",
         "Settings": "设置",
         "About": "关于",
-        "Logging": "登录中..."
+        "Logging": "登录中...",
+        "MustEnterContent": "请输入待处理的内容"
     },
     "apiResponse": {
         "ParameterRequired": "参数 {{para}} 不能为空",
@@ -66,7 +67,9 @@
         "ChunkSpeedUnit": "块/s",
         "TaskStopSuccess": "任务停止请求已发出",
         "SelectedCountOnlySupportOne" : "目前不支持批量停止，请只勾选 1 个任务",
-        "PleaseSelect": "请勾选 1 个任务"
+        "PleaseSelect": "请勾选 1 个任务",
+        "SelectTaskModalTitle": "选择任务",
+        "DownloadThisItem": "下载此任务"
     },
     "settings": {
         "SettingsTitle": "系统设置",

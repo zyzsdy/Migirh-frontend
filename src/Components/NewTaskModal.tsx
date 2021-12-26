@@ -1,6 +1,9 @@
-import { Button, Col, Collapse, Form, Input, InputNumber, Modal, Row, Select, Switch } from 'antd';
+import { Col, Collapse, Form, Input, InputNumber, message, Modal, Row, Select, Switch } from 'antd';
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useGlobalStore } from '../Contexts/globalContext';
+import { apiResponseData, defaultApiErrorAction } from '../utils/defaultApiErrorAction';
+import { fetchPostWithSign } from '../utils/fetchpost';
 import BrowseInput from './BrowseInput';
 import './NewTaskModal.scss';
 
@@ -24,7 +27,7 @@ export interface NewTaskParams {
 
 interface NewTaskModalProps {
     visible: boolean
-    onOK: (values: NewTaskParams) => void,
+    onOK: () => void,
     onCancel: () => void,
     initParams?: NewTaskParams
 }
@@ -32,6 +35,7 @@ interface NewTaskModalProps {
 export default function NewTaskModal(props: NewTaskModalProps) {
     const [t, i18n] = useTranslation("tasks");
     const [newTaskForm] = Form.useForm<NewTaskParams>();
+    const globalState = useGlobalStore();
 
     useEffect(() => {
         if (props.initParams) {
@@ -41,7 +45,37 @@ export default function NewTaskModal(props: NewTaskModalProps) {
 
 
     const onOk = () => {
-        props.onOK(newTaskForm.getFieldsValue());
+        newTaskAction(newTaskForm.getFieldsValue());
+    }
+
+    const newTaskAction = async (value: NewTaskParams) => {
+        let res = await fetchPostWithSign(globalState, "task/add", {
+            url: value.url,
+            live: value.live,
+            output: value.output,
+            category: value.category,
+            description: value.description,
+            options: {
+                threads: value.threads,
+                retries: value.retries,
+                key: value.key,
+                cookies: value.cookies,
+                headers: value.headers,
+                format: value.format,
+                slice: value.slice,
+                proxy: value.proxy,
+                nomerge: value.nomerge,
+                verbose: value.verbose
+            }
+        });
+        let json = await res.json() as apiResponseData;
+
+        if (json.error === 0) {
+            message.success(t('TaskAddSuccess'));
+            props.onOK();
+        } else {
+            defaultApiErrorAction(json, t);
+        }
     }
 
     return (

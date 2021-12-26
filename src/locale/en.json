@@ -9,7 +9,8 @@
         "Histories": "Histories",
         "Settings": "Settings",
         "About": "About",
-        "Logging": "Login..."
+        "Logging": "Login...",
+        "MustEnterContent": "Please enter the content to be processed"
     },
     "apiResponse": {
         "ParameterRequired": "{{para}} cannot be empty",
@@ -66,7 +67,9 @@
         "ChunkSpeedUnit": "chunks/s",
         "TaskStopSuccess": "Task stop request has been issued",
         "SelectedCountOnlySupportOne" : "Currently batch stop is not supported, please select only 1 task.",
-        "PleaseSelect": "Please select 1 task"
+        "PleaseSelect": "Please select 1 task",
+        "SelectTaskModalTitle": "Select task",
+        "DownloadThisItem": "Download"
     },
     "settings": {
         "SettingsTitle": "Settings",
