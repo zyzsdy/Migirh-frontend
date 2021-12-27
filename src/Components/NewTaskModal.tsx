@@ -1,5 +1,5 @@
-import { Col, Collapse, Form, Input, InputNumber, message, Modal, Row, Select, Switch } from 'antd';
-import React, { useEffect } from 'react';
+import { Button, Col, Collapse, Divider, Form, Input, InputNumber, message, Modal, Popover, Row, Select, Switch } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGlobalStore } from '../Contexts/globalContext';
 import { apiResponseData, defaultApiErrorAction } from '../utils/defaultApiErrorAction';
@@ -32,10 +32,22 @@ interface NewTaskModalProps {
     initParams?: NewTaskParams
 }
 
+interface CategoryValues {
+    cate_id: string;
+    cate_name: string;
+    default_path: string
+}
+
+interface GetCategoriesResponse extends apiResponseData {
+    data: CategoryValues[]
+}
+
 export default function NewTaskModal(props: NewTaskModalProps) {
     const [t, i18n] = useTranslation("tasks");
     const [newTaskForm] = Form.useForm<NewTaskParams>();
     const globalState = useGlobalStore();
+    const [catelist, setCatelist] = useState<CategoryValues[]>([]);
+    const [reloadCategories, setReloadCategories] = useState(0);
 
     useEffect(() => {
         if (props.initParams) {
@@ -43,6 +55,21 @@ export default function NewTaskModal(props: NewTaskModalProps) {
         }
     }, [newTaskForm, props.initParams]);
 
+    useEffect(() => {
+        const loadCategories = async () => {
+            let res = await fetchPostWithSign(globalState, "category/get", {});
+            let json = await res.json() as GetCategoriesResponse;
+    
+            if (json.error === 0) {
+                setCatelist(json.data);
+            } else {
+                defaultApiErrorAction(json, t);
+            }
+        }
+        if (props.visible) {
+            loadCategories();
+        }
+    }, [globalState, t, props.visible, reloadCategories]);
 
     const onOk = () => {
         newTaskAction(newTaskForm.getFieldsValue());
@@ -78,6 +105,22 @@ export default function NewTaskModal(props: NewTaskModalProps) {
         }
     }
 
+    const reloadCategory = () => {
+        setReloadCategories(reloadCategories + 1);
+    }
+
+    const onNewCategory = async (value: CategoryValues) => {
+        let res = await fetchPostWithSign(globalState, "category/add", value);
+        let json = await res.json() as apiResponseData;
+
+        if (json.error === 0) {
+            message.success(t('CategoryAddSuccess'));
+            reloadCategory();
+        } else {
+            defaultApiErrorAction(json, t);
+        }
+    }
+
     return (
         <Modal title={t('NewTaskModalTitle')} visible={props.visible} onOk={onOk} onCancel={props.onCancel} width={900}
             okText={t('OkButton')} cancelText={t('CancelButton')}>
@@ -85,7 +128,7 @@ export default function NewTaskModal(props: NewTaskModalProps) {
                 threads: 5,
                 retries: 5,
                 format: "ts",
-                category: "default"
+                category: "Default"
             }}>
                 <Row>
                     <Col span={3} className="modal-label"><label htmlFor="url">{t('M3u8Url')}</label></Col>
@@ -105,8 +148,33 @@ export default function NewTaskModal(props: NewTaskModalProps) {
                     <Col span={3} className="modal-label"><label htmlFor="category">{t('Category')}</label></Col>
                     <Col span={9}>
                         <Form.Item name="category">
-                            <Select>
-                                <Select.Option value="default">Default</Select.Option>
+                            <Select dropdownRender={(menu: React.ReactElement) => (
+                                <div>
+                                    {menu}
+                                    <Divider style={{margin: '4px 0'}} />
+                                    <Popover content={(
+                                        <Form layout="horizontal" labelCol={{span: 5}} wrapperCol={{span: 19}} onFinish={onNewCategory}>
+                                            <Form.Item label={t('CateId')} required name="cate_id">
+                                                <Input />
+                                            </Form.Item>
+                                            <Form.Item label={t('CateName')} name="cate_name">
+                                                <Input />
+                                            </Form.Item>
+                                            <Form.Item label={t('CateDefaultPath')} name="default_path">
+                                                <BrowseInput />
+                                            </Form.Item>
+                                            <Form.Item wrapperCol={{span: 19, offset: 5}}>
+                                                <Button type="primary" htmlType="submit">{t('CateAddSubmit')}</Button>
+                                            </Form.Item>
+                                        </Form>
+                                    )} title={t('AddCategoryTitle')} trigger="click" placement="bottom">
+                                        <Button style={{width: '100%'}} type="link">{t('AddCategoryButton')}</Button>
+                                    </Popover>
+                                </div>
+                            )}>
+                                {
+                                    catelist.map(o => <Select.Option value={o.cate_id} key={o.cate_id}>{o.cate_name ? o.cate_name: o.cate_id}</Select.Option>)
+                                }
                             </Select>
                         </Form.Item>
                     </Col>

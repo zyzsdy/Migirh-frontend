@@ -69,7 +69,14 @@
         "SelectedCountOnlySupportOne" : "目前不支持批量停止，请只勾选 1 个任务",
         "PleaseSelect": "请勾选 1 个任务",
         "SelectTaskModalTitle": "选择任务",
-        "DownloadThisItem": "下载此任务"
+        "DownloadThisItem": "下载此任务",
+        "AddCategoryButton": "添加分类...",
+        "CateId": "分类ID",
+        "CateName": "名称",
+        "CateDefaultPath": "默认保存",
+        "CateAddSubmit": "保存",
+        "AddCategoryTitle": "添加分类",
+        "CategoryAddSuccess": "分类添加成功"
     },
     "settings": {
         "SettingsTitle": "系统设置",

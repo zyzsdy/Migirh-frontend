@@ -69,7 +69,14 @@
         "SelectedCountOnlySupportOne" : "Currently batch stop is not supported, please select only 1 task.",
         "PleaseSelect": "Please select 1 task",
         "SelectTaskModalTitle": "Select task",
-        "DownloadThisItem": "Download"
+        "DownloadThisItem": "Download",
+        "AddCategoryButton": "Add Category...",
+        "CateId": "Cate ID",
+        "CateName": "Name",
+        "CateDefaultPath": "Savepath",
+        "CateAddSubmit": "Save",
+        "AddCategoryTitle": "New Category",
+        "CategoryAddSuccess": "Category added successfully"
     },
     "settings": {
         "SettingsTitle": "Settings",
