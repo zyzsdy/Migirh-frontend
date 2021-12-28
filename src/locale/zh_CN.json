@@ -99,6 +99,7 @@
         "EffectAfterRestart": "重启后生效"
     },
     "categoriesTranslation": {
-        "Default": "默认分类"
+        "Default": "默认分类",
+        "AllTask": "全部任务"
     }
 }

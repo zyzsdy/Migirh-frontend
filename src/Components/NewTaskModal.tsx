@@ -33,13 +33,13 @@ interface NewTaskModalProps {
     initParams?: NewTaskParams
 }
 
-interface CategoryValues {
+export interface CategoryValues {
     cate_id: string;
-    cate_name: string;
-    default_path: string
+    cate_name?: string;
+    default_path?: string
 }
 
-interface GetCategoriesResponse extends apiResponseData {
+export interface GetCategoriesResponse extends apiResponseData {
     data: CategoryValues[]
 }
 

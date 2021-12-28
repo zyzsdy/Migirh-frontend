@@ -99,6 +99,7 @@
         "EffectAfterRestart": "Take effect after restart"
     },
     "categoriesTranslation": {
-        "Default": "Default"
+        "Default": "Default",
+        "AllTask": "All Tasks"
     }
 }
