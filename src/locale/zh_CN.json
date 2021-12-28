@@ -97,5 +97,8 @@
         "ProxyPort": "端口",
         "MinyamiTmpPath": "Minyami 临时目录",
         "EffectAfterRestart": "重启后生效"
+    },
+    "categoriesTranslation": {
+        "Default": "默认分类"
     }
 }

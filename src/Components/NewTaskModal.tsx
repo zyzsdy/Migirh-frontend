@@ -185,7 +185,11 @@ export default function NewTaskModal(props: NewTaskModalProps) {
                                 </div>
                             )} onChange={categoryChange}>
                                 {
-                                    catelist.map(o => <Select.Option value={o.cate_id} key={o.cate_id}>{o.cate_name ? o.cate_name: o.cate_id}</Select.Option>)
+                                    catelist.map(o => 
+                                        <Select.Option value={o.cate_id} key={o.cate_id}>
+                                            {o.cate_name ? t(o.cate_name, { ns: "categoriesTranslation"}): t(o.cate_id, { ns: "categoriesTranslation"})}
+                                        </Select.Option>
+                                    )
                                 }
                             </Select>
                         </Form.Item>

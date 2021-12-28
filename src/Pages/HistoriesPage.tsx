@@ -1,11 +1,18 @@
-import { Divider } from 'antd';
+import { Layout } from 'antd';
 import React from 'react';
+import './HistoriesPage.scss';
+
+const { Sider, Content } = Layout;
 
 export default function HistoriesPage() {
     return (
-        <div>
-            <h1>Histories</h1>
-            <Divider />
-        </div>
+        <Layout>
+            <Sider width={150} className="categories-sider-background">
+                categories
+            </Sider>
+            <Content className="histories-content-background">
+                tasklist
+            </Content>
+        </Layout>
     );
 }

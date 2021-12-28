@@ -1,14 +1,81 @@
 .layout-header-background {
-    background-color: #eeeeee;
+    background-color: #c4b7d7;
     padding: 0px 12px;
+    position: fixed;
+    z-index: 12;
+    width: 100%;
+}
+
+$siderBackgroundColor: #ededf5;
+$siderThemeColor: #705697;
+$siderHighlightColor: #dad4f6;
+$siderActiveColor: #e9e5fc;
+
+.layout-sider-background-warpper {
+    background-color: $siderBackgroundColor;
 }
 
 .layout-sider-background {
+    background-color: $siderBackgroundColor;
     height: calc(100vh - 64px);
+    overflow: auto;
+    position: fixed;
+    z-index: 12;
+    left: 0;
+    top: 64px;
+}
+
+.layout-sider-background .ant-menu {
+    background-color: $siderBackgroundColor;
+}
+
+.layout-sider-background .ant-layout-sider-trigger {
+    background-color: $siderBackgroundColor;
+}
+
+.layout-sider-background .ant-layout-sider-trigger>span {
+    color: #000000;
+}
+
+.layout-sider-background .ant-menu-item-selected {
+    color: $siderThemeColor;
+    background-color: $siderHighlightColor !important;
+}
+
+.layout-sider-background .ant-menu-item-selected a{
+    color: $siderThemeColor;
+}
+
+.layout-sider-background .ant-menu-item-active {
+    color: $siderThemeColor;
+}
+
+.layout-sider-background .ant-menu-item-active a {
+    color: $siderThemeColor;
+}
+
+.layout-sider-background .ant-menu-item:hover {
+    color: $siderThemeColor;
+}
+
+.layout-sider-background .ant-menu-item:hover a {
+    color: $siderThemeColor;
+}
+
+.layout-sider-background .ant-menu-item:active{
+    background-color: $siderActiveColor;
+}
+
+.layout-sider-background .ant-menu-item::after {
+    border-right-color: $siderThemeColor;
 }
 
 .layout-content-background {
     background-color: #FFFFFF;
+    overflow: auto;
+    height: 100vh;
+    padding-left: 80px;
+    padding-top: 64px;
 }
 
 .layout-header-logo {

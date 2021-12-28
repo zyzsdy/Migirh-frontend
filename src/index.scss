@@ -20,3 +20,18 @@ body {
 .mainframe-content-warpper > h1 {
   font-size: 28px;   
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(39, 39, 39, 0.1);
+  border-radius: 10px;
+}

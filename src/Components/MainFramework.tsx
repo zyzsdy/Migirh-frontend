@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { DownloadOutlined, CalendarOutlined, SettingOutlined, TagsOutlined, SearchOutlined } from '@ant-design/icons';
+import { DownloadOutlined, CalendarOutlined, SettingOutlined, TagsOutlined, SendOutlined } from '@ant-design/icons';
 import { Input, Button, Layout, Menu, Row, Col, message } from 'antd';
 import './MainFramework.scss';
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -86,27 +86,25 @@ export default function MainFramework() {
                     <Col span={20} className="header-maininput-warpper">
                         <Input.Group compact>
                             <Input className="header-maininput" ref={mainInputEl} placeholder={t('TaskInputPlaceholder')} onPressEnter={mainInputProcessing} />
-                            <Button className="header-maininput-button" icon={<SearchOutlined />} onClick={mainInputProcessing} />
+                            <Button className="header-maininput-button" icon={<SendOutlined />} onClick={mainInputProcessing} />
                         </Input.Group>
                         <SelectTaskModal initParams={selectTaskList} visible={selectTaskVisible} onOK={selectTaskOk} onCancel={selectTaskCancel} />
                         <NewTaskModal visible={newTaskModalVisible} onOK={newTaskAction} onCancel={newTaskCancel} initParams={newTaskModalParams} />
                     </Col>
                 </Row>
             </Header>
-            <Layout>
+            <Layout className="layout-sider-background-warpper">
                 <Sider collapsible collapsed={collapse} onCollapse={c => setCollapse(c)} width={200} className="layout-sider-background">
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]}>
+                    <Menu theme="light" mode="inline" defaultSelectedKeys={[location.pathname]}>
                         <Menu.Item key="/" icon={<DownloadOutlined />}><Link to="/">{t('Tasks')}</Link></Menu.Item>
                         <Menu.Item key="/histories" icon={<CalendarOutlined />}><Link to="/histories">{t('Histories')}</Link></Menu.Item>
                         <Menu.Item key="/settings" icon={<SettingOutlined />}><Link to="/settings">{t('Settings')}</Link></Menu.Item>
                         <Menu.Item key="/about" icon={<TagsOutlined />}><Link to="/about">{t('About')}</Link></Menu.Item>
                     </Menu>
                 </Sider>
-                <Layout>
-                    <Content className="layout-content-background">
-                        <Outlet />
-                    </Content>
-                </Layout>
+                <Content className="layout-content-background">
+                    <Outlet />
+                </Content>
             </Layout>
         </Layout>
     );

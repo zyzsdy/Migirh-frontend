@@ -97,5 +97,8 @@
         "ProxyPort": "Port",
         "MinyamiTmpPath": "Minyami Temp directory",
         "EffectAfterRestart": "Take effect after restart"
+    },
+    "categoriesTranslation": {
+        "Default": "Default"
     }
 }
