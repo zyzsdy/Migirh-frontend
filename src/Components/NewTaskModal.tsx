@@ -11,6 +11,7 @@ export interface NewTaskParams {
     url?: string;
     live?: boolean;
     output?: string;
+    filename?: string;
     category?: string;
     description?: string;
     threads?: number;
@@ -80,6 +81,7 @@ export default function NewTaskModal(props: NewTaskModalProps) {
             url: value.url,
             live: value.live,
             output: value.output,
+            filename: value.filename,
             category: value.category,
             description: value.description,
             options: {
@@ -118,6 +120,16 @@ export default function NewTaskModal(props: NewTaskModalProps) {
             reloadCategory();
         } else {
             defaultApiErrorAction(json, t);
+        }
+    }
+
+    const categoryChange = (v: string) => {
+        let idx = catelist.findIndex(x => x.cate_id === v);
+        if (idx !== -1){
+            let cateItem = catelist[idx];
+            if (cateItem.default_path) {
+                newTaskForm.setFieldsValue({output: cateItem.default_path});
+            }
         }
     }
 
@@ -171,7 +183,7 @@ export default function NewTaskModal(props: NewTaskModalProps) {
                                         <Button style={{width: '100%'}} type="link">{t('AddCategoryButton')}</Button>
                                     </Popover>
                                 </div>
-                            )}>
+                            )} onChange={categoryChange}>
                                 {
                                     catelist.map(o => <Select.Option value={o.cate_id} key={o.cate_id}>{o.cate_name ? o.cate_name: o.cate_id}</Select.Option>)
                                 }
@@ -184,6 +196,14 @@ export default function NewTaskModal(props: NewTaskModalProps) {
                     <Col span={21}>
                         <Form.Item name="output">
                             <BrowseInput />
+                        </Form.Item>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={3} className="modal-label"><label htmlFor="filename">{t('Filename')}</label></Col>
+                    <Col span={21}>
+                        <Form.Item name="filename">
+                            <Input />
                         </Form.Item>
                     </Col>
                 </Row>
