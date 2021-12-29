@@ -1,13 +1,21 @@
+import { ConfigProvider } from 'antd';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 import reportWebVitals from './reportWebVitals';
 
-import DefaultRouter from './router'
+import DefaultRouter from './router';
+
+ConfigProvider.config({
+    theme: {
+        primaryColor: "#705697",
+        errorColor: "#cc2366"
+    }
+});
 
 ReactDOM.render(
-  <DefaultRouter />,
-  document.getElementById('root')
+    <DefaultRouter />,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

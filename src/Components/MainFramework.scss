@@ -1,22 +1,19 @@
+@import './ThemeColors.scss';
+
 .layout-header-background {
-    background-color: #c4b7d7;
+    background-color: $BackgroundColor;
     padding: 0px 12px;
     position: fixed;
     z-index: 20;
     width: 100%;
 }
 
-$siderBackgroundColor: #ededf5;
-$siderThemeColor: #705697;
-$siderHighlightColor: #dad4f6;
-$siderActiveColor: #e9e5fc;
-
 .layout-sider-background-warpper {
-    background-color: $siderBackgroundColor;
+    background-color: $BackgroundColor;
 }
 
 .layout-sider-background {
-    background-color: $siderBackgroundColor;
+    background-color: $BackgroundColor;
     height: calc(100vh - 64px);
     overflow: auto;
     position: fixed;
@@ -26,11 +23,11 @@ $siderActiveColor: #e9e5fc;
 }
 
 .layout-sider-background .ant-menu {
-    background-color: $siderBackgroundColor;
+    background-color: $BackgroundColor;
 }
 
 .layout-sider-background .ant-layout-sider-trigger {
-    background-color: $siderBackgroundColor;
+    background-color: $BackgroundColor;
 }
 
 .layout-sider-background .ant-layout-sider-trigger>span {
@@ -38,36 +35,36 @@ $siderActiveColor: #e9e5fc;
 }
 
 .layout-sider-background .ant-menu-item-selected {
-    color: $siderThemeColor;
-    background-color: $siderHighlightColor !important;
+    color: $ThemeColor;
+    background-color: $HighlightColor !important;
 }
 
 .layout-sider-background .ant-menu-item-selected a{
-    color: $siderThemeColor;
+    color: $ThemeColor;
 }
 
 .layout-sider-background .ant-menu-item-active {
-    color: $siderThemeColor;
+    color: $ThemeColor;
 }
 
 .layout-sider-background .ant-menu-item-active a {
-    color: $siderThemeColor;
+    color: $ThemeColor;
 }
 
 .layout-sider-background .ant-menu-item:hover {
-    color: $siderThemeColor;
+    color: $ThemeColor;
 }
 
 .layout-sider-background .ant-menu-item:hover a {
-    color: $siderThemeColor;
+    color: $ThemeColor;
 }
 
 .layout-sider-background .ant-menu-item:active{
-    background-color: $siderActiveColor;
+    background-color: $ActiveColor;
 }
 
 .layout-sider-background .ant-menu-item::after {
-    border-right-color: $siderThemeColor;
+    border-right-color: $ThemeColor;
 }
 
 .layout-content-background {

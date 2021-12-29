@@ -1,8 +1,4 @@
-@import '~antd/dist/antd.css';
-
-body {
-  margin: 0;
-}
+@import '~antd/dist/antd.variable.css';
 
 @font-face {
   font-family: 'Fredoka One';
@@ -13,12 +9,33 @@ body {
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
+@font-face {
+  font-family: 'MiSans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./assets/MiSans-Normal.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'MiSans';
+  font-style: medium;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./assets/MiSans-Medium.woff2') format('woff2');
+}
+
+body {
+  margin: 0;
+  font-family: MiSans, -apple-system, "PingFang SC", BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 .mainframe-content-warpper {
   padding: 10px;
 }
 
 .mainframe-content-warpper > h1 {
-  font-size: 28px;   
+  font-size: 28px;
 }
 
 ::-webkit-scrollbar {
