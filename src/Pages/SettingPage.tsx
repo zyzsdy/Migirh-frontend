@@ -8,6 +8,7 @@ import { fetchPostWithSign } from '../utils/fetchpost';
 import { apiResponseData, defaultApiErrorAction } from '../utils/defaultApiErrorAction';
 import debounce from '../utils/debounce';
 import { InfoCircleOutlined } from '@ant-design/icons';
+import BrowseInput from '../Components/BrowseInput';
 
 interface systemConfigGetResponse extends apiResponseData {
     data: SystemConfig[]
@@ -40,7 +41,7 @@ export default function SettingPage() {
     const [lang, setLang] = useState("en");
     const [minyamiOptionsForm] = Form.useForm<MinyamiOptions>();
     const [proxyOptionsForm] = Form.useForm<ProxyOptions>();
-    const minyamiTmpPathInputEl = useRef<Input>(null);
+    const [minyamiTmpPath, setMinyamiTmpPath] = useState<string>();
 
     const setSystemConfig = async (config: SystemConfig) => {
         let res = await fetchPostWithSign(globalState, "system/update_config", {
@@ -64,8 +65,8 @@ export default function SettingPage() {
         });
     }
 
-    const onMinyamiTmpPathChange = async (event: any) => {
-        let v = event.target.value;
+    const onMinyamiTmpPathChange = async (v: string) => {
+        console.log("minyamiTempPath: " + v)
         await setSystemConfig({
             config_key: "minyami_tmp_path",
             config_value: v
@@ -104,9 +105,7 @@ export default function SettingPage() {
                         let proxyOptions = JSON.parse(config.config_value) as ProxyOptions;
                         proxyOptionsForm.setFieldsValue(proxyOptions);
                     } else if (config.config_key === "minyami_tmp_path") {
-                        if (minyamiTmpPathInputEl.current) {
-                            minyamiTmpPathInputEl.current.setValue(config.config_value);
-                        }
+                        setMinyamiTmpPath(config.config_value);
                     }
                 }
             } else {
@@ -130,7 +129,7 @@ export default function SettingPage() {
                         </Select>
                     </Form.Item>
                     <Form.Item label={t('MinyamiTmpPath')} tooltip={{title: t('EffectAfterRestart'), icon: <InfoCircleOutlined />}}>
-                        <Input ref={minyamiTmpPathInputEl} onChange={debounce(onMinyamiTmpPathChange, 750)}/>
+                        <BrowseInput value={minyamiTmpPath} onChange={debounce(onMinyamiTmpPathChange, 750)}/>
                     </Form.Item>
                 </Form>
                 <h2>{t('MinyamiOptions')}</h2>

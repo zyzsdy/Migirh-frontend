@@ -15,7 +15,11 @@
     "apiResponse": {
         "ParameterRequired": "{{para}} cannot be empty",
         "WsConnError": "Websocket connection has error",
-        "CannotProcess": "Unable to parse the input into a supported page, link or command"
+        "CannotProcess": "Unable to parse the input into a supported page, link or command",
+        "NoThisTask": "Task {{task_id}} is not found.",
+        "TaskNotActive": "Task {{task_id}} is not active task.",
+        "CategoryIdCannotSetDefault": "Category ID cannot be set to ‘Default’",
+        "CannotDeleteDefaultCategory": "Cannot delete the default category"
     },
     "login": {
         "LoginTitle": "Login",
@@ -76,7 +80,19 @@
         "CateDefaultPath": "Savepath",
         "CateAddSubmit": "Save",
         "AddCategoryTitle": "New Category",
-        "CategoryAddSuccess": "Category added successfully"
+        "CategoryAddSuccess": "Category added successfully",
+        "EditCategory": "Edit Category",
+        "UpdateTime": "Last op time",
+        "TaskResumeSuccess": "Task resume request has been issued, please go to Tasks page for details",
+        "MustSelectCategory": "You must select a category to edit",
+        "CateDel": "Delete the category",
+        "ConfirmCateDel": "Confirm to delete category? After deletion, all tasks in the category will be moved to the default category.",
+        "CategoryDeleteSuccess": "Category deleted successfully",
+        "DeleteTaskConfirm": "Confirm deletion",
+        "DeleteTaskNameConfirm": "Delete task {{taskname}}, are you sure?",
+        "DeleteFileSameTime": "Delete file at the same time",
+        "ConfirmDeleteButton": "Confirm delete",
+        "TaskDeleteSuccess": "Task deleted successfully"
     },
     "settings": {
         "SettingsTitle": "Settings",

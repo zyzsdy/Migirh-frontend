@@ -17,3 +17,8 @@
 .task-progress-bar .ant-progress-inner {
     border-radius: 7px;
 }
+
+.task-progress-bar .ant-progress-outer {
+    margin-right: calc(-2em - 13px);
+    padding-right: calc(2em + 13px);
+}

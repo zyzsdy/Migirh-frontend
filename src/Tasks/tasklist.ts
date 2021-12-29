@@ -6,6 +6,7 @@ export interface TaskBasicInfo {
     output_path: string;
     source_url: string;
     category: string;
+    category_name?: string;
     date_create: Date;
     date_update: Date;
     description: string;

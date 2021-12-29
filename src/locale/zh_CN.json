@@ -15,7 +15,11 @@
     "apiResponse": {
         "ParameterRequired": "参数 {{para}} 不能为空",
         "WsConnError": "Websocket 连接出错",
-        "CannotProcess": "无法将输入解析为支持的页面地址、HLS链接或命令"
+        "CannotProcess": "无法将输入解析为支持的页面地址、HLS链接或命令",
+        "NoThisTask": "任务 {{task_id}} 不存在",
+        "TaskNotActive": "任务 {{task_id}} 不是当前活动任务",
+        "CategoryIdCannotSetDefault": "分类ID不能设置为 Default",
+        "CannotDeleteDefaultCategory": "不能删除默认分类"
     },
     "login": {
         "LoginTitle": "用户登录",
@@ -76,7 +80,19 @@
         "CateDefaultPath": "默认保存",
         "CateAddSubmit": "保存",
         "AddCategoryTitle": "添加分类",
-        "CategoryAddSuccess": "分类添加成功"
+        "CategoryAddSuccess": "分类添加成功",
+        "EditCategory": "编辑分类信息",
+        "UpdateTime": "最后操作时间",
+        "TaskResumeSuccess": "继续任务指令已发送，请切换到正在下载查看",
+        "MustSelectCategory": "必须选择一个分类才能编辑",
+        "CateDel": "删除此分类",
+        "ConfirmCateDel": "确认删除分类？删除后所有分类中的任务都将移动到默认分类。",
+        "CategoryDeleteSuccess": "分类删除成功",
+        "DeleteTaskConfirm": "确认删除",
+        "DeleteTaskNameConfirm": "删除任务 {{taskname}} ，确认吗？",
+        "DeleteFileSameTime": "同时删除文件",
+        "ConfirmDeleteButton": "确认删除",
+        "TaskDeleteSuccess": "任务删除成功"
     },
     "settings": {
         "SettingsTitle": "系统设置",

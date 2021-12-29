@@ -48,8 +48,6 @@ export default function debounce(func: Function, wait: number = 1000) {
         const timeSinceLastCall = (lastCallTime) ? (time - lastCallTime) : 0;
         const timeSinceLastInvoke = time - lastInvokeTime;
 
-        console.log(lastCallTime);
-
         return (lastCallTime === undefined || (timeSinceLastCall >= wait) || (timeSinceLastCall < 0) || (maxing && timeSinceLastInvoke >= maxWait));
     }
 

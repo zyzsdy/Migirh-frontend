@@ -223,6 +223,33 @@ export default function TaskPage() {
             defaultApiErrorAction(json, t);
         }
     }
+
+    const resumeTask = async () => {
+        if (selectedTask.length <= 0) {
+            message.error(t('PleaseSelect'));
+            return;
+        }
+        if (selectedTask.length !== 1) {
+            message.error(t('SelectedCountOnlySupportOne'));
+            return;
+        }
+        let taskId = selectedTask[0];
+
+        let res = await fetchPostWithSign(globalState, "task/resume", {
+            task_id: taskId
+        });
+        let json = await res.json() as apiResponseData;
+
+        if (json.error === 0) {
+            message.success(t('TaskResumeSuccess'));
+        } else {
+            defaultApiErrorAction(json, t);
+        }
+    }
+
+    const selectRow = (row: TaskBasicInfo) => {
+        setSelectedTask([row.task_id]);
+    }
     
     const statusLabels = [t("Init"), t("Downloading"), t("Paused"), t("Merging"), t("Completed"), t("Error")];
     const columns = [
@@ -243,7 +270,8 @@ export default function TaskPage() {
             render: (status: number) => {
                 let l = statusLabels[status];
                 return <>{ l }</>;
-            }
+            },
+            width: "100px"
         },
         {
             title: t("Process"),
@@ -262,7 +290,7 @@ export default function TaskPage() {
                 }
                 
             },
-            width: "200px"
+            width: "220px"
         },
         {
             title: t("ETA"),
@@ -274,7 +302,7 @@ export default function TaskPage() {
             title: t("Speed"),
             dataIndex: "chunk_speed",
             render: (s: string, row: TaskBasicInfo) => <>{row.status !== 4 && <>{row.chunk_speed} {t('ChunkSpeedUnit')} | {row.ratio_speed}x</>}</>,
-            width: "140px"
+            width: "180px"
         },
         {
             title: t("Description"),
@@ -294,17 +322,52 @@ export default function TaskPage() {
             <div>
                 <Space>
                     <Button type="primary" icon={<PlusCircleOutlined />} onClick={showNewTask}><span className="task-button-label">{t('NewTask')}</span></Button>
-                    <Button icon={<PauseCircleOutlined />}><span className="task-button-label">{t('Pause')}</span></Button>
-                    <Button icon={<PlayCircleOutlined />}><span className="task-button-label">{t('Resume')}</span></Button>
-                    <Button icon={<StopOutlined />} onClick={stopTask}><span className="task-button-label">{t('Stop')}</span></Button>
-                    <Button type="primary" danger icon={<DeleteOutlined />}><span className="task-button-label">{t('Delete')}</span></Button>
+                    {
+                        IsNowLive(taskList, selectedTask) ? (
+                            <Button icon={<StopOutlined />} onClick={stopTask}><span className="task-button-label">{t('Stop')}</span></Button>
+                        ) : (
+                            IsPause(taskList, selectedTask) ? (
+                                <Button icon={<PlayCircleOutlined />} onClick={resumeTask}><span className="task-button-label">{t('Resume')}</span></Button>
+                            ) : (
+                                <Button icon={<PauseCircleOutlined />} onClick={stopTask}><span className="task-button-label">{t('Pause')}</span></Button>
+                            )
+                            
+                        )
+                    }
                 </Space>
             </div>
             <div className="task-maintable-wrapper">
                 <Table columns={columns} dataSource={taskList} pagination={false} rowKey="task_id"
-                    rowSelection={{selectedRowKeys: selectedTask, onChange: setSelectedTask, type: "checkbox"}}
+                    rowSelection={{selectedRowKeys: selectedTask, onChange: setSelectedTask, type: "radio", renderCell: () => <></>, columnWidth: 0}}
+                    onRow={(row: TaskBasicInfo) => ({
+                        onClick: () => {
+                            selectRow(row);
+                        }
+                    })}
                 />
             </div>
         </div>
     );
+}
+
+function IsNowLive(taskList: TaskBasicInfo[], selectedTask: React.Key[]) {
+    if (selectedTask?.length <= 0) return true;
+    let taskId = selectedTask[0];
+
+    let idx = taskList.findIndex(t => t.task_id === taskId);
+    if (idx === -1) return true;
+
+    let task = taskList[idx];
+    return task.is_live;
+}
+
+function IsPause(taskList: TaskBasicInfo[], selectedTask: React.Key[]) {
+    if (selectedTask?.length <= 0) return false;
+    let taskId = selectedTask[0];
+
+    let idx = taskList.findIndex(t => t.task_id === taskId);
+    if (idx === -1) return false;
+
+    let task = taskList[idx];
+    return task.status === 2;
 }
