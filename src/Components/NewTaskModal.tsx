@@ -246,28 +246,28 @@ export default function NewTaskModal(props: NewTaskModalProps) {
                         </Row>
                         <Row>
                             <Col span={3} className="modal-label"><label htmlFor="nomerge">{t('Nomerge')}</label></Col>
-                            <Col span={9}>
+                            <Col span={5}>
                                 <Form.Item name="nomerge" valuePropName="checked">
                                     <Switch />
                                 </Form.Item>
                             </Col>
                             <Col span={3} className="modal-label"><label htmlFor="verbose">{t('Verbose')}</label></Col>
-                            <Col span={9}>
+                            <Col span={5}>
                                 <Form.Item name="verbose" valuePropName="checked">
                                     <Switch />
+                                </Form.Item>
+                            </Col>
+                            <Col span={3} className="modal-label"><label htmlFor="slice">{t('Slice')}</label></Col>
+                            <Col span={5}>
+                                <Form.Item name="slice">
+                                    <Input />
                                 </Form.Item>
                             </Col>
                         </Row>
                         <Row>
                             <Col span={3} className="modal-label"><label htmlFor="key">{t('Key')}</label></Col>
-                            <Col span={9}>
+                            <Col span={21}>
                                 <Form.Item name="key">
-                                    <Input />
-                                </Form.Item>
-                            </Col>
-                            <Col span={3} className="modal-label"><label htmlFor="slice">{t('Slice')}</label></Col>
-                            <Col span={9}>
-                                <Form.Item name="slice">
                                     <Input />
                                 </Form.Item>
                             </Col>

@@ -15,6 +15,26 @@ export interface TaskBasicInfo {
     chunk_speed?: string;
     ratio_speed?: string;
     eta?: string;
+    minyami_options?: MinyamiOptions,
+    logger?: Log[]
+}
+
+export interface MinyamiOptions {
+    threads?: number;
+    retries?: number;
+    key?: string;
+    cookies?: string;
+    headers?: string;
+    format?: string;
+    slice?: string;
+    proxy?: string;
+    nomerge?: boolean;
+    verbose?: boolean;
+}
+
+export interface Log {
+    type: "debug" | "info" | "warning" | "error";
+    message: string;
 }
 
 interface ReloadTaskList {

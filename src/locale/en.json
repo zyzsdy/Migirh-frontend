@@ -92,7 +92,15 @@
         "DeleteTaskNameConfirm": "Delete task {{taskname}}, are you sure?",
         "DeleteFileSameTime": "Delete file at the same time",
         "ConfirmDeleteButton": "Confirm delete",
-        "TaskDeleteSuccess": "Task deleted successfully"
+        "TaskDeleteSuccess": "Task deleted successfully",
+        "TaskDetail": "Task Detail",
+        "LiveMode": "Live Mode",
+        "ArchiveMode": "Archive Mode",
+        "Expand": "Expand",
+        "Empty": "Empty",
+        "FinishedChunkCount": "Number of chunks downloaded",
+        "TotalChunkCount": "Number of total chunks",
+        "MinyamiWorkerLogTitle": "Minyami Worker Log"
     },
     "settings": {
         "SettingsTitle": "Settings",

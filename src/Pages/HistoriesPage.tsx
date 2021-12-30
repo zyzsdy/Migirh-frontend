@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import BrowseInput from '../Components/BrowseInput';
 import type { CategoryValues, GetCategoriesResponse } from '../Components/NewTaskModal';
+import TaskDetail from '../Components/TaskDetail';
 import { useGlobalStore } from '../Contexts/globalContext';
 import { TaskBasicInfo } from '../Tasks/tasklist';
 import { apiResponseData, defaultApiErrorAction } from '../utils/defaultApiErrorAction';
@@ -39,6 +40,8 @@ export default function HistoriesPage() {
     const [deleteTaskConfirmModalVisible, setDeleteTaskConfirmModalVisible] = useState(false);
     const [isDeleteFileSameTime, setIsDeleteFileSameTime] = useState(false);
     const [reloadPage, setReloadPage] = useState(0);
+    const [taskDetailVisible, setTaskDetailVisible] = useState(false);
+    const [activeTaskDetail, setActiveTaskDetail] = useState<TaskBasicInfo | null>(null);
 
     useEffect(() => {
         const loadCategories = async () => {
@@ -118,6 +121,16 @@ export default function HistoriesPage() {
 
     const selectRow = (row: TaskBasicInfo) => {
         setSelectedTask([row.task_id]);
+    }
+
+    const openTaskDetail = (row: TaskBasicInfo) => {
+        setActiveTaskDetail(row);
+        setTaskDetailVisible(true);
+    }
+
+    const onTaskDetailClose = () => {
+        setTaskDetailVisible(false);
+        setActiveTaskDetail(null);
     }
 
     const showEditCateModal = () => {
@@ -335,12 +348,16 @@ export default function HistoriesPage() {
                             onRow={(row: TaskBasicInfo) => ({
                                 onClick: () => {
                                     selectRow(row);
+                                },
+                                onDoubleClick: () => {
+                                    openTaskDetail(row);
                                 }
                             })}
                         />
                     </div>
                 </Content>
             </Layout>
+            <TaskDetail visible={taskDetailVisible} taskItem={activeTaskDetail} onClose={onTaskDetailClose} isActive={false} loading={false}/>
         </Skeleton>
     );
 }

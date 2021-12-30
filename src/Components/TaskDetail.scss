@@ -1,0 +1,41 @@
+.task-detail-minyami-options-panel {
+    margin-top: 10px;
+}
+
+.task-detail-logger-header {
+    margin-top: 10px;
+    border-top: 1px solid #CCCCCC;
+    border-left: 1px solid #CCCCCC;
+    border-right: 1px solid #CCCCCC;
+    border-radius: 5px 5px 0 0;
+    font-weight: 500;
+    padding: 5px;
+}
+
+.task-detail-logger-wrapper {
+    height: 400px;
+    overflow: auto;
+    border: 1px solid #CCCCCC;
+    color: #FFFFFF;
+    background-color: #0c0c0c;
+    padding: 5px;
+}
+
+.task-detail-logger-wrapper .task-detail-logger {
+    font-family: 'Cascadia Code', Consolas, 'Courier New', Courier, monospace;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin: 0
+}
+.task-detail-logger-wrapper .log-info {
+    color: #e7e7e7;
+}
+.task-detail-logger-wrapper .log-debug {
+    color: #747474;
+}
+.task-detail-logger-wrapper .log-warning {
+    color: #d47419;
+}
+.task-detail-logger-wrapper .log-error {
+    color: #c71717;
+}

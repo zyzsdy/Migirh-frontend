@@ -48,6 +48,7 @@ export default function SelectTaskModal(props: SelectTaskModalProps) {
                             <Typography.Paragraph ellipsis={{
                                 rows: 2,
                                 expandable: true,
+                                symbol: t('Expand')
                             }}>
                                 {inputResult.info?.url ?? "No URL"}
                             </Typography.Paragraph>

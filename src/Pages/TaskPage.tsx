@@ -8,9 +8,11 @@ import { apiResponseData, defaultApiErrorAction } from '../utils/defaultApiError
 import { fetchPostWithSign } from '../utils/fetchpost';
 import { formatDateShort } from '../utils/format';
 import { WsClientMessage, WsServerReply } from '../utils/WsMessage';
-import { TaskBasicInfo, taskListReducer } from '../Tasks/tasklist';
+import { Log, TaskBasicInfo, taskListReducer } from '../Tasks/tasklist';
 import sleep from '../utils/sleep';
 import './TaskPage.scss';
+import TaskDetail from '../Components/TaskDetail';
+import { activeTaskReducer } from '../Tasks/activeTask';
 
 interface taskPreaddResponse extends apiResponseData {
     cache: NewTaskParams;
@@ -18,6 +20,10 @@ interface taskPreaddResponse extends apiResponseData {
 
 interface taskNowResponse extends apiResponseData {
     data: TaskBasicInfo[];
+}
+
+interface nowLoggerResponse extends apiResponseData {
+    logger: Log[]
 }
 
 const stepInReducer = (state: number) => {
@@ -32,6 +38,9 @@ export default function TaskPage() {
     const [taskList, dispatchTaskList] = useReducer(taskListReducer, []);
     const [selectedTask, setSelectedTask] = useState<React.Key[]>([]);
     const [t, i18n] = useTranslation("tasks");
+    const [taskDetailVisible, setTaskDetailVisible] = useState(false);
+    const [taskDetailLoading, setTaskDetailLoading] = useState(true);
+    const [activeTaskDetail, dispatchActiveTask] = useReducer(activeTaskReducer, null);
 
     useEffect(() => {
         const loadTaskNow = async () => {
@@ -94,6 +103,12 @@ export default function TaskPage() {
                                     data: msg.data
                                 }
                             });
+                            dispatchActiveTask({
+                                taskId: msg.task_id,
+                                type: "chunkUpdate",
+                                param: msg.data,
+                                log: msg.log
+                            });
                         } else if (msg.subCmd === 2) {
                             dispatchTaskList({
                                 type: "statusChange",
@@ -101,6 +116,20 @@ export default function TaskPage() {
                                     task_id: msg.task_id,
                                     newStatus: msg.newStatus
                                 }
+                            });
+                            dispatchActiveTask({
+                                taskId: msg.task_id,
+                                type: "statusChange",
+                                param: {
+                                    newStatus: msg.newStatus
+                                },
+                                log: msg.log
+                            });
+                        } else {
+                            dispatchActiveTask({
+                                taskId: msg.task_id,
+                                type: "newLog",
+                                log: msg.log
                             });
                         }
                         return;
@@ -175,7 +204,6 @@ export default function TaskPage() {
             }
         }
 
-        // eslint-disable-next-line
     }, []);
 
     const showNewTask = async () => {
@@ -249,6 +277,37 @@ export default function TaskPage() {
 
     const selectRow = (row: TaskBasicInfo) => {
         setSelectedTask([row.task_id]);
+    }
+
+    const openTaskDetail = async (row: TaskBasicInfo) => {
+        dispatchActiveTask({
+            type: "setNew",
+            param: row
+        });
+        setTaskDetailLoading(true);
+        setTaskDetailVisible(true);
+
+        let res = await fetchPostWithSign(globalState, "task/nowlog", {
+            task_id: row.task_id
+        });
+        let json = await res.json() as nowLoggerResponse;
+
+        if (json.error === 0) {
+            dispatchActiveTask({
+                type: "replaceLogger",
+                logger: json.logger
+            });
+            setTaskDetailLoading(false);
+        } else {
+            defaultApiErrorAction(json, t);
+        }
+    }
+
+    const onTaskDetailClose = () => {
+        setTaskDetailVisible(false);
+        dispatchActiveTask({
+            type: "setNull"
+        });
     }
     
     const statusLabels = [t("Init"), t("Downloading"), t("Paused"), t("Merging"), t("Completed"), t("Error")];
@@ -342,10 +401,14 @@ export default function TaskPage() {
                     onRow={(row: TaskBasicInfo) => ({
                         onClick: () => {
                             selectRow(row);
+                        },
+                        onDoubleClick: () => {
+                            openTaskDetail(row);
                         }
                     })}
                 />
             </div>
+            <TaskDetail visible={taskDetailVisible} taskItem={activeTaskDetail} onClose={onTaskDetailClose} isActive={true} loading={taskDetailLoading}/>
         </div>
     );
 }

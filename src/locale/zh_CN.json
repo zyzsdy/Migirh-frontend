@@ -92,7 +92,15 @@
         "DeleteTaskNameConfirm": "删除任务 {{taskname}} ，确认吗？",
         "DeleteFileSameTime": "同时删除文件",
         "ConfirmDeleteButton": "确认删除",
-        "TaskDeleteSuccess": "任务删除成功"
+        "TaskDeleteSuccess": "任务删除成功",
+        "TaskDetail": "任务详情",
+        "LiveMode": "直播",
+        "ArchiveMode": "存档下载模式",
+        "Expand": "展开",
+        "Empty": "无",
+        "FinishedChunkCount": "已下载块数",
+        "TotalChunkCount": "总块数",
+        "MinyamiWorkerLogTitle": "Minyami Worker 日志"
     },
     "settings": {
         "SettingsTitle": "系统设置",
