@@ -100,7 +100,8 @@
         "Empty": "Empty",
         "FinishedChunkCount": "Number of chunks downloaded",
         "TotalChunkCount": "Number of total chunks",
-        "MinyamiWorkerLogTitle": "Minyami Worker Log"
+        "MinyamiWorkerLogTitle": "Minyami Worker Log",
+        "ElectronOnly": "Avaliable in Electron environment only"
     },
     "settings": {
         "SettingsTitle": "Settings",

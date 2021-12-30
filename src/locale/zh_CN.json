@@ -100,7 +100,8 @@
         "Empty": "无",
         "FinishedChunkCount": "已下载块数",
         "TotalChunkCount": "总块数",
-        "MinyamiWorkerLogTitle": "Minyami Worker 日志"
+        "MinyamiWorkerLogTitle": "Minyami Worker 日志",
+        "ElectronOnly": "只有Electron环境下才有效"
     },
     "settings": {
         "SettingsTitle": "系统设置",

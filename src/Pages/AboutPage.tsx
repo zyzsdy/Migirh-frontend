@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import packageJson from '../../package.json'
 import { useGlobalStore } from '../Contexts/globalContext';
 import { apiResponseData, defaultApiErrorAction } from '../utils/defaultApiErrorAction';
+import { getElectronVersion } from '../ElectronTools/electronTools';
 import { fetchPost } from '../utils/fetchpost';
 
 const getChromeVersion = () => {
@@ -50,6 +51,14 @@ export default function AboutPage() {
         }
 
         loadVersion();
+    }, []);
+
+    useEffect(() => {
+        const loadElectronVersion = async () => {
+            setElectronVersion(await getElectronVersion());
+        }
+
+        loadElectronVersion();
     }, []);
 
     return (

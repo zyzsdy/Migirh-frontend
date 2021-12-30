@@ -1,7 +1,6 @@
 {
   "name": "migirh-frontend",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@types/node": "^12.20.37",
@@ -11,6 +10,7 @@
     "crypto-js": "^4.1.1",
     "i18next": "^21.6.3",
     "i18next-browser-languagedetector": "^6.1.2",
+    "is-electron": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.15.1",
