@@ -58,7 +58,6 @@ export default function HistoriesPage() {
 
         loadCategories();
 
-    // eslint-disable-next-line
     }, [reloadCategories]);
 
     useEffect(() => {
