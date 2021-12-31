@@ -1,6 +1,21 @@
 {
   "name": "migirh-frontend",
   "version": "1.0.0",
+  "description": "The frontend of Migirh-core",
+  "keywords": [
+    "Minyami",
+    "HLS"
+  ],
+  "author": "Ted Zyzsdy",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zyzsdy/Migirh-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zyzsdy/Migirh-frontend/issues"
+  },
+  "homepage": "https://github.com/zyzsdy/Migirh-frontend#readme",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@types/node": "^12.20.37",
